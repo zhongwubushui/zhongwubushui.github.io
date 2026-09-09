@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中无不尽 · 命理玄学知识分享</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0a0f;
+            color: #e0d5c1;
+            min-height: 100vh;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 12px;
+            color: #d4af37;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            letter-spacing: 5px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px 20px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 25px;
+        }
+        nav a:hover {
+            color: #d4af37;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #d4af37;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .article-list {
+            margin-bottom: 50px;
+        }
+        .article-item {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+        .article-item:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(25, 25, 35, 0.8);
+            transform: translateX(5px);
+        }
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .article-title {
+            font-size: 1.2rem;
+            color: #e0d5c1;
+            letter-spacing: 2px;
+        }
+        .article-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .article-excerpt {
+            color: #888;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+        .article-footer {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .article-meta {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        /* 站点导航 */
+        .sites-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .site-card {
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 30px 40px;
+            text-align: center;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: inherit;
+            min-width: 200px;
+        }
+        .site-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+        }
+        .site-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .site-name {
+            font-size: 1.3rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+        .site-desc {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: #444;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        @media (max-width: 768px) {
+            .logo { font-size: 2rem; letter-spacing: 8px; }
+            nav { gap: 15px; }
+            .sites-nav { flex-direction: column; align-items: center; }
+            .site-card { width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <header>
+        <div style="font-size: 3.5rem; margin-bottom: 15px;">☯</div>
+        <h1 class="logo">中无不尽</h1>
+        <p class="subtitle">命理玄学知识分享平台</p>
+    </header>
+
+    <nav>
+        <a href="/ziwei/articles/命宫主星详解.html">紫微斗数</a>
+        <a href="/bazi/">八字命理</a>
+        <a href="/liuyao/">六爻占卜</a>
+        <a href="/fengshui/">风水堪舆</a>
+        <a href="#about">关于</a>
+    </nav>
+
+    <div class="sites-nav">
+        <a href="/" class="site-card">
+            <div class="site-icon">☯</div>
+            <div class="site-name">命理玄学</div>
+            <div class="site-desc">命理知识分享</div>
+        </a>
+        <a href="/chunfeng.github.io/" class="site-card">
+            <div class="site-icon">🌸</div>
+            <div class="site-name">春风</div>
+            <div class="site-desc">文艺随笔空间</div>
+        </a>
+        <a href="/canxuan.github.io/" class="site-card">
+            <div class="site-icon">💻</div>
+            <div class="site-name">Canv</div>
+            <div class="site-desc">技术博客空间</div>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="section-title">最新文章</div>
+        <div class="article-list">
+            <a href="/ziwei/articles/命宫主星详解.html" class="article-item">
+                <div class="article-header">
+                    <span class="article-title">紫微斗数入门：命宫主星详解</span>
+                    <span class="article-date">2026.09.09</span>
+                </div>
+                <p class="article-excerpt">命宫是紫微斗数十二宫的核心，主星决定了一个人的基本性格和命运走向。本文详解十四主星的特质与判断方法...</p>
+                <div class="article-footer">
+                    <span class="article-meta">📖 紫微斗数</span>
+                    <span class="article-meta">👁 1286次阅读</span>
+                    <span class="article-meta">💬 23条评论</span>
+                </div>
+            </a>
+
+            <a href="/ziwei/articles/十二宫位详解.html" class="article-item">
+                <div class="article-header">
+                    <span class="article-title">十二宫位详解：人生全方位解读</span>
+                    <span class="article-date">2026.09.08</span>
+                </div>
+                <p class="article-excerpt">紫微斗数将人生分为十二个方面，每个方面对应一个宫位。了解十二宫位的含义，就能全面解读命运轨迹...</p>
+                <div class="article-footer">
+                    <span class="article-meta">📖 紫微斗数</span>
+                    <span class="article-meta">👁 2156次阅读</span>
+                    <span class="article-meta">💬 45条评论</span>
+                </div>
+            </a>
+
+            <a href="/ziwei/articles/四化飞星入门.html" class="article-item">
+                <div class="article-header">
+                    <span class="article-title">四化飞星入门：禄权科忌详解</span>
+                    <span class="article-date">2026.09.07</span>
+                </div>
+                <p class="article-excerpt">四化飞星是紫微斗数中最精妙的部分，禄主机缘，权主掌控，科主名声，忌主执着。理解四化，读懂命运...</p>
+                <div class="article-footer">
+                    <span class="article-meta">📖 紫微斗数</span>
+                    <span class="article-meta">👁 3421次阅读</span>
+                    <span class="article-meta">💬 67条评论</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 中无不尽 · 命理玄学知识分享平台</p>
+        <p>知其命，明其运，顺势而为</p>
+    </footer>
+</body>
+</html>

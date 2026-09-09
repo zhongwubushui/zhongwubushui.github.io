@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十二宫位详解：命盘核心框架 | 中无不尽</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0a0f;
+            color: #e0d5c1;
+            min-height: 100vh;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .back-link {
+            display: inline-block;
+            color: #d4af37;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .logo {
+            font-size: 2rem;
+            color: #d4af37;
+            letter-spacing: 8px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .article-title {
+            font-size: 2rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .article-content h2 {
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin: 50px 0 25px;
+            padding-left: 15px;
+            border-left: 3px solid #d4af37;
+        }
+        .article-content h3 {
+            font-size: 1.2rem;
+            color: #e0d5c1;
+            margin: 30px 0 15px;
+        }
+        .article-content p {
+            line-height: 2;
+            color: #bbb;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+        .palace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .palace-card {
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        .palace-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+        }
+        .palace-card h4 {
+            color: #d4af37;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .palace-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-indent: 0;
+        }
+        .palace-card .detail {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .highlight {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 3px solid #d4af37;
+        }
+        .highlight p {
+            text-indent: 0;
+            color: #ccc;
+        }
+        .star-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .star-table th, .star-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .star-table th {
+            color: #d4af37;
+            font-weight: 600;
+        }
+        .star-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+        .star-table td:first-child {
+            color: #d4af37;
+        }
+        .relation-diagram {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .relation-diagram h4 {
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        .grid-3x3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .grid-cell {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 15px 10px;
+            font-size: 0.85rem;
+            color: #e0d5c1;
+        }
+        .grid-cell.center {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            margin-top: 60px;
+        }
+        @media (max-width: 768px) {
+            .article-title { font-size: 1.5rem; }
+            .palace-grid { grid-template-columns: 1fr; }
+            .grid-3x3 { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <header>
+        <a href="/" class="back-link">← 返回首页</a>
+        <div class="logo">中无不尽</div>
+    </header>
+
+    <div class="container">
+        <div class="article-meta">
+            <span>📅 2026.09.09</span>
+            <span>📖 紫微斗数</span>
+            <span>👁 3200次阅读</span>
+            <span>💬 68条评论</span>
+        </div>
+
+        <h1 class="article-title">十二宫位详解：命盘核心框架</h1>
+
+        <div class="article-content">
+            <p>紫微斗数以十二宫位为骨架，将人生万象纳入其中。命宫为核心，财帛、官禄等十一宫为辅助，共同构成一张完整的人生地图。本文将系统讲解十二宫位的内涵与关联。</p>
+
+            <div class="highlight">
+                <p><strong>核心要义：</strong>十二宫位并非孤立存在，而是相互关联、相互影响的有机整体。命宫为核心，三方四正为辅助，形成完整的命运图谱。理解宫位关系，是解读命盘的基础。</p>
+            </div>
+
+            <h2>一、十二宫位总览</h2>
+
+            <div class="palace-grid">
+                <div class="palace-card">
+                    <h4>🏠 命宫</h4>
+                    <p>人生核心，决定先天禀赋、性格特质、命运基调。是解读命盘的起点。</p>
+                    <div class="detail">⭐ 主星落宫决定格局高低</div>
+                </div>
+                <div class="palace-card">
+                    <h4>💰 财帛宫</h4>
+                    <p>财运来源、理财能力、赚钱方式。反映一个人对金钱的态度和能力。</p>
+                    <div class="detail">⭐ 与田宅宫互为表里</div>
+                </div>
+                <div class="palace-card">
+                    <h4>💼 官禄宫</h4>
+                    <p>事业发展、职业倾向、工作成就。决定事业高度和职场运势。</p>
+                    <div class="detail">⭐ 三方会照命宫</div>
+                </div>
+                <div class="palace-card">
+                    <h4>🌍 迁移宫</h4>
+                    <p>外出运、社交能力、适应环境的能力。反映在外地的机缘和贵人。</p>
+                    <div class="detail">⭐ 命宫的对宫</div>
+                </div>
+                <div class="palace-card">
+                    <h4>💕 夫妻宫</h4>
+                    <p>婚姻状况、感情模式、配偶特征。决定感情走向和婚姻质量。</p>
+                    <div class="detail">⭐ 官禄的对宫</div>
+                </div>
+                <div class="palace-card">
+                    <h4>👶 子女宫</h4>
+                    <p>子女缘分、生育能力、与子女的关系。也代表晚辈、学生缘。</p>
+                    <div class="detail">⭐ 田宅的对宫</div>
+                </div>
+                <div class="palace-card">
+                    <h4>👥 交友宫</h4>
+                    <p>人际关系、朋友运势、贵人小人。反映社交圈的质量和层次。</p>
+                    <div class="detail">⭐ 田宅的对宫</div>
+                </div>
+                <div class="palace-card">
+                    <h4>🏥 疾厄宫</h4>
+                    <p>健康状况、体质特点、易患疾病。是身体健康的预警指标。</p>
+                    <div class="detail">⭐ 命宫的伏位</div>
+                </div>
+                <div class="palace-card">
+                    <h4>🏠 田宅宫</h4>
+                    <p>房产运、家庭环境、积蓄能力。反映不动产和家庭财富。</p>
+                    <div class="detail">⭐ 财帛的伏位</div>
+                </div>
+                <div class="palace-card">
+                    <h4>🎂 福德宫</h4>
+                    <p>精神世界、福气深浅、兴趣爱好。决定内心的满足感和幸福感。</p>
+                    <div class="detail">⭐ 命宫的三合</div>
+                </div>
+                <div class="palace-card">
+                    <h4>👨‍👩‍👧 父母宫</h4>
+                    <p>父母缘分、家庭教育、与长辈的关系。也代表上级、上司缘。</p>
+                    <div class="detail">⭐ 命宫的三合</div>
+                </div>
+                <div class="palace-card">
+                    <h4>👤 身宫</h4>
+                    <p>后天运势、行为模式、人生追求。补充命宫的不足，影响后半生。</p>
+                    <div class="detail">⭐ 可落在任意宫位</div>
+                </div>
+            </div>
+
+            <h2>二、三方四正的概念</h2>
+
+            <p>在紫微斗数中，每个宫位都有三个相关联的宫位，合称"三方"。再加上本宫和对宫，共四个宫位，称为"三方四正"。</p>
+
+            <p><strong>以命宫为例：</strong></p>
+            <ul style="margin: 15px 0 15px 40px; color: #aaa; line-height: 2;">
+                <li>命宫（本宫）</li>
+                <li>财帛宫（财帛三方）</li>
+                <li>官禄宫（官禄三方）</li>
+                <li>迁移宫（迁移三方）</li>
+                <li>夫妻宫（对宫）</li>
+            </ul>
+
+            <div class="relation-diagram">
+                <h4>命宫三方四正示意图</h4>
+                <div class="grid-3x3">
+                    <div class="grid-cell">迁移宫</div>
+                    <div class="grid-cell center">命宫</div>
+                    <div class="grid-cell">财帛宫</div>
+                    <div class="grid-cell">父母宫</div>
+                    <div class="grid-cell" style="background:transparent;border:none;"></div>
+                    <div class="grid-cell">福德宫</div>
+                    <div class="grid-cell">子女宫</div>
+                    <div class="grid-cell">官禄宫</div>
+                    <div class="grid-cell">交友宫</div>
+                </div>
+                <p style="margin-top:15px;font-size:0.85rem;color:#888;">命宫（绿）、财帛（蓝）、官禄（橙）、迁移（紫）构成三方四正</p>
+            </div>
+
+            <p>三方四正的星曜组合，决定了命宫主星的格局高低。这就是为什么不能只看命宫，而要综合判断的原因。</p>
+
+            <div class="highlight">
+                <p><strong>实践要点：</strong>读盘时，先观察命宫主星及其三方四正的星曜组合，判断格局大小；再逐一分析各宫位的具体情况。三方四正是命盘解读的核心框架。</p>
+            </div>
+
+            <h2>三、宫位间的六合关系</h2>
+
+            <p>除了三方四正，宫位之间还有六合关系，即六合宫。六合宫对原宫位有辅助作用。</p>
+
+            <table class="star-table">
+                <tr>
+                    <th>原宫</th>
+                    <th>六合宫</th>
+                    <th>关系说明</th>
+                </tr>
+                <tr>
+                    <td>命宫</td>
+                    <td>申宫（交友宫）</td>
+                    <td>命宫受交友宫辅助</td>
+                </tr>
+                <tr>
+                    <td>兄弟宫</td>
+                    <td>酉宫（父母宫）</td>
+                    <td>兄弟宫受父母宫辅助</td>
+                </tr>
+                <tr>
+                    <td>夫妻宫</td>
+                    <td>戌宫（福德宫）</td>
+                    <td>夫妻宫受福德宫辅助</td>
+                </tr>
+                <tr>
+                    <td>子女宫</td>
+                    <td>亥宫（田宅宫）</td>
+                    <td>子女宫受田宅宫辅助</td>
+                </tr>
+                <tr>
+                    <td>财帛宫</td>
+                    <td>子宫（官禄宫）</td>
+                    <td>财帛宫受官禄宫辅助</td>
+                </tr>
+                <tr>
+                    <td>疾厄宫</td>
+                    <td>丑宫（迁移宫）</td>
+                    <td>疾厄宫受迁移宫辅助</td>
+                </tr>
+            </table>
+
+            <p>六合宫的意义在于：<strong>原宫位遇到问题时，六合宫可以提供缓冲和帮助。</strong>这也是为什么某些宫位虽弱，但仍有解救的原因。</p>
+
+            <h2>四、各宫位的重点解读</h2>
+
+            <h3>4.1 命宫——人生核心</h3>
+            <p>命宫是命盘的核心，代表一个人的先天禀赋、性格特质、命运基调。命宫主星决定了一个人的基本人格特质。</p>
+            <p><strong>命宫强弱的判断标准：</strong></p>
+            <ul style="margin: 15px 0 15px 40px; color: #aaa; line-height: 2;">
+                <li>主星是否有力量（庙旺落陷）</li>
+                <li>三方四正的星曜组合</li>
+                <li>是否有吉化（禄、权、科、忌）</li>
+                <li>是否有煞星冲破</li>
+            </ul>
+
+            <h3>4.2 财帛宫——财富来源</h3>
+            <p>财帛宫反映一个人的财运来源、理财能力、赚钱方式。不同的主星落在财帛宫，代表不同的求财方式。</p>
+            <p><strong>财帛宫主星简析：</strong></p>
+            <table class="star-table">
+                <tr>
+                    <th>主星</th>
+                    <th>求财方式</th>
+                </tr>
+                <tr>
+                    <td>紫微</td>
+                    <td>稳健理财，注重信誉</td>
+                </tr>
+                <tr>
+                    <td>天机</td>
+                    <td>动脑生财，灵活多变</td>
+                </tr>
+                <tr>
+                    <td>太阳</td>
+                    <td>公开求财，热心助人</td>
+                </tr>
+                <tr>
+                    <td>武曲</td>
+                    <td>实干求财，金融相关</td>
+                </tr>
+                <tr>
+                    <td>天同</td>
+                    <td>随缘求财，小财不断</td>
+                </tr>
+                <tr>
+                    <td>廉贞</td>
+                    <td>交际生财，艺术相关</td>
+                </tr>
+                <tr>
+                    <td>巨门</td>
+                    <td>口舌生财，竞争性强</td>
+                </tr>
+                <tr>
+                    <td>廉贞</td>
+                    <td>交际生财，艺术相关</td>
+                </tr>
+                <tr>
+                    <td>天府</td>
+                    <td>稳健理财，积蓄能力强</td>
+                </tr>
+                <tr>
+                    <td>太阴</td>
+                    <td>细腻理财，夜间求财</td>
+                </tr>
+                <tr>
+                    <td>贪狼</td>
+                    <td>投机求财，善用人脉</td>
+                </tr>
+                <tr>
+                    <td>廉贞</td>
+                    <td>交际生财，艺术相关</td>
+                </tr>
+                <tr>
+                    <td>破军</td>
+                    <td>冒险求财，先破后立</td>
+                </tr>
+                <tr>
+                    <td>七杀</td>
+                    <td>竞争求财，白手起家</td>
+                </tr>
+                <tr>
+                    <td>巨门</td>
+                    <td>口舌生财，是非中求财</td>
+                </tr>
+            </table>
+
+            <h3>4.3 官禄宫——事业发展</h3>
+            <p>官禄宫反映一个人的事业发展、职业倾向、工作成就。官禄宫好的命盘，事业上更容易获得成功。</p>
+            <p><strong>官禄宫主星简析：</strong></p>
+            <ul style="margin: 15px 0 15px 40px; color: #aaa; line-height: 2;">
+                <li><strong>紫微</strong>：适合管理岗位，有领导才能</li>
+                <li><strong>天机</strong>：适合策划、咨询、技术类工作</li>
+                <li><strong>太阳</strong>：适合公开场合工作，如教育、传媒</li>
+                <li><strong>武曲</strong>：适合金融、贸易、实业</li>
+                <li><strong>天同</strong>：适合服务业、福利事业</li>
+                <li><strong>廉贞</strong>：适合艺术、娱乐、外交</li>
+                <li><strong>巨门</strong>：适合法律、教育、销售</li>
+                <li><strong>天府</strong>：适合管理、行政、金融</li>
+                <li><strong>太阴</strong>：适合财务、房地产、夜间工作</li>
+                <li><strong>贪狼</strong>：适合娱乐、艺术、贸易</li>
+                <li><strong>破军</strong>：适合创业、改革、创新行业</li>
+                <li><strong>七杀</strong>：适合军警、体育、技术</li>
+                <li><strong>禄存</strong>：适合稳定的职业</li>
+            </ul>
+
+            <h3>4.4 夫妻宫——感情婚姻</h3>
+            <p>夫妻宫反映一个人的婚姻状况、感情模式、配偶特征。夫妻宫的分析是命盘解读的重要内容。</p>
+            <p><strong>夫妻宫主星简析：</strong></p>
+            <ul style="margin: 15px 0 15px 40px; color: #aaa; line-height: 2;">
+                <li><strong>紫微</strong>：配偶气质高贵，有领导才能</li>
+                <li><strong>天机</strong>：配偶聪明敏捷，但感情多变</li>
+                <li><strong>太阳</strong>：配偶热情大方，男命克妻</li>
+                <li><strong>武曲</strong>：配偶刚强独立，婚姻易有争执</li>
+                <li><strong>天同</strong>：配偶温和善良，感情稳定</li>
+                <li><strong>廉贞</strong>：配偶外貌出众，感情复杂</li>
+                <li><strong>巨门</strong>：配偶口才好，易有口舌</li>
+                <li><strong>天府</strong>：配偶稳重可靠，婚姻稳定</li>
+                <li><strong>太阴</strong>：配偶温柔贤惠，女命佳</li>
+                <li><strong>贪狼</strong>：配偶多才多艺，感情丰富</li>
+                <li><strong>破军</strong>：配偶个性强烈，婚姻多波折</li>
+                <li><strong>七杀</strong>：配偶独立坚强，婚姻需磨合</li>
+            </ul>
+
+            <h2>五、特殊宫位：身宫</h2>
+
+            <p>身宫是紫微斗数中的特殊概念，代表后天运势。身宫可以落在十二宫中的任何一个位置，其意义取决于所落的宫位。</p>
+
+            <p><strong>身宫在不同宫位的含义：</strong></p>
+            <table class="star-table">
+                <tr>
+                    <th>身宫位置</th>
+                    <th>后天发展重点</th>
+                </tr>
+                <tr>
+                    <td>命宫</td>
+                    <td>后天性格与命宫一致，命运较稳定</td>
+                </tr>
+                <tr>
+                    <td>财帛宫</td>
+                    <td>后天重视财富积累，理财能力增强</td>
+                </tr>
+                <tr>
+                    <td>官禄宫</td>
+                    <td>后天事业心强，职业发展重要</td>
+                </tr>
+                <tr>
+                    <td>迁移宫</td>
+                    <td>后天多外出发展，适应力强</td>
+                </tr>
+                <tr>
+                    <td>夫妻宫</td>
+                    <td>后天重视感情婚姻，配偶影响大</td>
+                </tr>
+                <tr>
+                    <td>子女宫</td>
+                    <td>后天重视子女教育，晚辈缘强</td>
+                </tr>
+                <tr>
+                    <td>交友宫</td>
+                    <td>后天重视人脉关系，社交活跃</td>
+                </tr>
+                <tr>
+                    <td>疾厄宫</td>
+                    <td>后天关注健康，养生意识强</td>
+                </tr>
+                <tr>
+                    <td>田宅宫</td>
+                    <td>后天重视家庭，房产运好</td>
+                </tr>
+                <tr>
+                    <td>福德宫</td>
+                    <td>后天重视精神生活，福气深厚</td>
+                </tr>
+                <tr>
+                    <td>父母宫</td>
+                    <td>后天重视长辈关系，学历较高</td>
+                </tr>
+            </table>
+
+            <h2>六、宫位间的相互作用</h2>
+
+            <p>十二宫位之间形成了复杂的相互作用网络。理解这些关系，是准确解读命盘的关键。</p>
+
+            <p><strong>命宫 ↔ 夫妻宫：</strong>命宫强的人，对感情要求也高；夫妻宫弱的人，感情路上多波折。</p>
+            <p><strong>财帛宫 ↔ 田宅宫：</strong>财帛宫主收入，田宅宫主积蓄。财田互为表里，反映一个人的财富积累能力。</p>
+            <p><strong>官禄宫 ↔ 夫妻宫：</strong>事业心强的人，可能忽视家庭；夫妻宫好的人，事业发展也更顺利。</p>
+            <p><strong>福德宫 ↔ 命宫：</strong>福德宫反映精神世界，影响命宫的情绪状态。福德宫好的人，心态更积极。</p>
+            <p><strong>交友宫 ↔ 官禄宫：</strong>交友宫好的人，贵人运强，事业发展更顺利。</p>
+            <p><strong>疾厄宫 ↔ 命宫：</strong>疾厄宫反映身体健康，影响命宫的整体运势。</p>
+
+            <div class="highlight">
+                <p><strong>实践要点：</strong>读盘时，要先看三方四正，再看六合宫，最后看对宫和伏位。宫位间的相互作用是动态的，需要综合分析。</p>
+            </div>
+
+            <h2>七、大限与流年</h2>
+
+            <p>除了本命盘，紫微斗数还有大限和流年的概念。</p>
+
+            <p><strong>大限：</strong>每十年一个周期，大限命宫取代本命命宫，成为这十年的核心。分析大限，可以了解人生各阶段的运势变化。</p>
+            <p><strong>流年：</strong>每年一个周期，流年命宫取代大限命宫。流年分析，可以预测具体年份的吉凶祸福。</p>
+            <p><strong>流月：</strong>每月一个周期，流月命宫取代流年命宫。流月分析，可以了解每个月的具体情况。</p>
+
+            <p>大限、流年、流月的分析方法，与本盘类似，只是宫位的重心发生了变化。命盘是静态的，运势是动态的。理解这一点，才能正确运用紫微斗数。</p>
+
+            <h2>结语</h2>
+
+            <p>十二宫位是紫微斗数的基础框架。掌握了宫位的含义和关联，就能搭建起完整的命盘解读体系。</p>
+            <p>记住：<strong>命盘只是地图，不是命运本身。</strong>了解命运趋势，是为了更好地把握当下，而不是消极等待。知其命，明其运，顺势而为。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 中无不尽 · 命理玄学知识分享平台</p>
+        <p>知其命，明其运，顺势而为</p>
+    </footer>
+</body>
+</html>
