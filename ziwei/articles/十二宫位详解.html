@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十二宫位详解 | 中无不尽</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0a0f;
+            color: #e0d5c1;
+            min-height: 100vh;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .back-link {
+            display: inline-block;
+            color: #d4af37;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .logo {
+            font-size: 2rem;
+            color: #d4af37;
+            letter-spacing: 8px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .article-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .article-title {
+            font-size: 2rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .article-content h2 {
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin: 40px 0 20px;
+            padding-left: 15px;
+            border-left: 3px solid #d4af37;
+        }
+        .article-content h3 {
+            font-size: 1.2rem;
+            color: #e0d5c1;
+            margin: 30px 0 15px;
+        }
+        .article-content p {
+            line-height: 2;
+            color: #bbb;
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+        .palace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .palace-card {
+            background: rgba(20, 20, 30, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .palace-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+        }
+        .palace-card h4 {
+            color: #d4af37;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .palace-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-indent: 0;
+        }
+        .highlight {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 3px solid #d4af37;
+        }
+        .highlight p {
+            text-indent: 0;
+            color: #ccc;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            margin-top: 60px;
+        }
+        @media (max-width: 768px) {
+            .article-title { font-size: 1.5rem; }
+            .palace-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <header>
+        <a href="/" class="back-link">← 返回首页</a>
+        <div class="logo">中无不尽</div>
+    </header>
+
+    <div class="container">
+        <div class="article-meta">
+            <span>📅 2026.09.08</span>
+            <span>📖 紫微斗数</span>
+            <span>👁 2156次阅读</span>
+            <span>💬 45条评论</span>
+        </div>
+
+        <h1 class="article-title">十二宫位详解：人生全方位解读</h1>
+
+        <div class="article-content">
+            <p>紫微斗数将人生分为十二个方面，每个方面对应一个宫位。了解十二宫位的含义，就能全面解读一个人的命运轨迹。</p>
+
+            <div class="highlight">
+                <p><strong>核心要义：</strong>十二宫位并非孤立存在，而是相互关联、相互影响的。命宫为核心，三方四正为辅助，形成完整的命运图谱。</p>
+            </div>
+
+            <h2>十二宫位总览</h2>
+
+            <div class="palace-grid">
+                <div class="palace-card">
+                    <h4>🏠 命宫</h4>
+                    <p>人生核心，决定先天禀赋、性格特质、命运基调。是解读命盘的起点。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>💰 财帛宫</h4>
+                    <p>财运来源、理财能力、赚钱方式。反映一个人对金钱的态度和能力。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>💼 官禄宫</h4>
+                    <p>事业发展、职业倾向、工作成就。决定事业高度和职场运势。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>🌍 迁移宫</h4>
+                    <p>外出运、社交能力、适应环境的能力。反映在外地的机缘和贵人。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>💕 夫妻宫</h4>
+                    <p>婚姻状况、感情模式、配偶特征。决定感情走向和婚姻质量。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>👶 子女宫</h4>
+                    <p>子女缘分、生育能力、与子女的关系。也代表晚辈、学生缘。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>👥 交友宫</h4>
+                    <p>人际关系、朋友运势、贵人小人。反映社交圈的质量和层次。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>🏥 疾厄宫</h4>
+                    <p>健康状况、体质特点、易患疾病。是身体健康的预警指标。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>🏠 田宅宫</h4>
+                    <p>房产运、家庭环境、积蓄能力。反映不动产和家庭财富。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>🎂 福德宫</h4>
+                    <p>精神世界、福气深浅、兴趣爱好。决定内心的满足感和幸福感。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>👨‍👩‍👧 父母宫</h4>
+                    <p>父母缘分、家庭教育、与长辈的关系。也代表上级、上司缘。</p>
+                </div>
+                <div class="palace-card">
+                    <h4>👤 身宫</h4>
+                    <p>后天运势、行为模式、人生追求。补充命宫的不足，影响后半生。</p>
+                </div>
+            </div>
+
+            <h2>三方四正的概念</h2>
+
+            <p>在紫微斗数中，每个宫位都有三个相关联的宫位，合称"三方"。再加上本宫和对宫，共四个宫位，称为"三方四正"。</p>
+
+            <p><strong>以命宫为例：</strong></p>
+            <ul style="margin: 15px 0 15px 40px; color: #aaa; line-height: 2;">
+                <li>命宫（本宫）</li>
+                <li>财帛宫（财帛三方）</li>
+                <li>官禄宫（官禄三方）</li>
+                <li>迁移宫（迁移三方）</li>
+                <li>夫妻宫（对宫）</li>
+            </ul>
+
+            <p>三方四正的星曜组合，决定了命宫主星的格局高低。这就是为什么不能只看命宫，而要综合判断的原因。</p>
+
+            <div class="highlight">
+                <p><strong>实践要点：</strong>读盘时，先观察命宫主星及其三方四正的星曜组合，判断格局大小；再逐一分析各宫位的具体情况。</p>
+            </div>
+
+            <h2>宫位之间的关联</h2>
+
+            <p>十二宫位并非孤立存在，而是形成了复杂的关联网络：</p>
+
+            <p><strong>命宫 ↔ 夫妻宫：</strong>命宫强的人，对感情要求也高；夫妻宫弱的人，感情路上多波折。</p>
+
+            <p><strong>财帛宫 ↔ 田宅宫：</strong>财帛宫主收入，田宅宫主积蓄。财田互为表里，反映一个人的财富积累能力。</p>
+
+            <p><strong>官禄宫 ↔ 夫妻宫：</strong>事业心强的人，可能忽视家庭；夫妻宫好的人，事业发展也更顺利。</p>
+
+            <p><strong>福德宫 ↔ 命宫：</strong>福德宫反映精神世界，影响命宫的情绪状态。福德宫好的人，心态更积极。</p>
+
+            <h2>大限与流年</h2>
+
+            <p>除了本命盘，紫微斗数还有大限和流年的概念：</p>
+
+            <p><strong>大限：</strong>每十年一个周期，大限命宫取代本命命宫，成为这十年的核心。分析大限，可以了解人生各阶段的运势变化。</p>
+
+            <p><strong>流年：</strong>每年一个周期，流年命宫取代大限命宫。流年分析，可以预测具体年份的吉凶祸福。</p>
+
+            <p>大限和流年的分析方法，与本盘类似，只是宫位的重心发生了变化。</p>
+
+            <h2>结语</h2>
+
+            <p>十二宫位是紫微斗数的基础框架。掌握了宫位的含义和关联，就能搭建起完整的命盘解读体系。</p>
+
+            <p>但记住：<strong>命盘只是地图，不是命运本身。</strong>了解命运趋势，是为了更好地把握当下，而不是消极等待。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 中无不尽 · 命理玄学知识分享平台</p>
+        <p>知其命，明其运，顺势而为</p>
+    </footer>
+</body>
+</html>
